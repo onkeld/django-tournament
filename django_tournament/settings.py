@@ -158,6 +158,7 @@ INSTALLED_APPS = [
     # 'allauth.socialaccount.providers.okta',
     # 'allauth.socialaccount.providers.feishu',
     'static_pages',
+    'tournament',
 ]
 
 MIDDLEWARE = [
