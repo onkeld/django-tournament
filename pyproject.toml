@@ -11,6 +11,13 @@ django = "^5.0.4"
 django-allauth = "^0.61.1"
 
 
+[tool.poetry.group.test.dependencies]
+django-webtest = "^1.9.11"
+
+
+[tool.poetry.group.dev.dependencies]
+django-webtest = "^1.9.11"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
