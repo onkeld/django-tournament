@@ -12,3 +12,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Django Web Framework was added to the project in the current version 5.0.4.
 - Created a new django project "django_tournament" inside the poetry project.
 - Added django-allauth as authentification and user management framework.
+- Added a Django App for static pages, currently serving a dummy index page for the whole project ("Hello World" type).
