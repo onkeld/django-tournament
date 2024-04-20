@@ -14,10 +14,12 @@ django-allauth = "^0.61.1"
 
 [tool.poetry.group.test.dependencies]
 django-webtest = "^1.9.11"
+coverage = "^7.4.4"
 
 
 [tool.poetry.group.dev.dependencies]
 django-webtest = "^1.9.11"
+coverage = "^7.4.4"
 
 [build-system]
 requires = ["poetry-core"]
