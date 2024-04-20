@@ -1,0 +1,5 @@
+{
+  "editor.wordWrap": "bounded",
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": false,
+  "editor.tabSize": 4
+}

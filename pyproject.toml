@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "django-tournament"
+version = "0.0.0"
+description = "Django Project for managing and displaying tournament schedules and other related data on a website."
+authors = ["Daniel Zaumsegel <daniel.zaumsegel@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
