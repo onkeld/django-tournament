@@ -2,6 +2,7 @@
 name = "django-tournament"
 version = "0.0.0"
 description = "Django Project for managing and displaying tournament schedules and other related data on a website."
+license = "MIT"
 authors = ["Daniel Zaumsegel <daniel.zaumsegel@gmail.com>"]
 readme = "README.md"
 
