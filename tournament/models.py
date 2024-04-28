@@ -29,7 +29,14 @@ class Team(models.Model):
     # Team Leader is an authenticated User, so the leader can edit the team info
     team_manager = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True, verbose_name="Team Manager",)
-    # TODO: The team needs players. Players may or may not be users of the app as to be able to edit their own info. Many-To-One Relationship to players (A player can only be member of one team, but the team needs many players.).
+    players = models.ManyToManyField(
+        User, through="TeamMember", related_name='players')
 
     def __str__(self):
         return self.name
+
+
+class TeamMember(models.Model):
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    player = models.ForeignKey(User, on_delete=models.CASCADE)
+    number = models.SmallIntegerField("Jersey Number")

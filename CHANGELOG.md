@@ -18,4 +18,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a Django App for managing Tournaments. This is the main app for the project
   - A tournament is defined by a start date and an end date.
   - Teams are defined by name, club of origin, city of origin and a colour scheme (primary and secondary colour) and have a team leader who is a registered user of the app.
+  - Teams have Players as Team Members.
+  - Players are Users of the App.
   
