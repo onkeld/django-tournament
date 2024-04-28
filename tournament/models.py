@@ -2,19 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Tournament(models.Model):
-    start_date = models.DateField()
-    end_date = models.DateField()
-    created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    modified_at = models.DateTimeField(auto_now=True, editable=False)
-
-    def __str__(self):
-        start_str = self.start_date.strftime('%Y-%m-%d')
-        end_str = self.end_date.strftime('%Y-%m-%d')
-        tournament_date = start_str + " - " + end_str
-        return tournament_date
-
-
 class Team(models.Model):
     name = models.CharField("Team Name", max_length=255)  # store team name
     club = models.CharField("Club Name", max_length=255)
@@ -40,3 +27,22 @@ class TeamMember(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     player = models.ForeignKey(User, on_delete=models.CASCADE)
     number = models.SmallIntegerField("Jersey Number")
+
+
+class Tournament(models.Model):
+    start_date = models.DateField()
+    end_date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    modified_at = models.DateTimeField(auto_now=True, editable=False)
+    participants = models.ManyToManyField(Team, through="Participant")
+
+    def __str__(self):
+        start_str = self.start_date.strftime('%Y-%m-%d')
+        end_str = self.end_date.strftime('%Y-%m-%d')
+        tournament_date = start_str + " - " + end_str
+        return tournament_date
+
+
+class Participant(models.Model):
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)

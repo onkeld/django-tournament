@@ -21,3 +21,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Teams have Players as Team Members.
     - Per-Team info for players can be stored on the intermediate Model (such as jersey numbers).
   - Players are Users of the App.
+  - Teams are Participants of Tournaments
