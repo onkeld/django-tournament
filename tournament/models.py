@@ -1,5 +1,23 @@
 from django.db import models
+from django_countries.fields import CountryField
+from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import User
+
+
+class Address(models.Model):
+    street = models.CharField(max_length=100)
+    number = models.CharField("House Number", max_length=10)
+    postcode = models.CharField(max_length=10)
+    city = models.CharField(max_length=100)
+    country = CountryField(default="DE")
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # A User might have multiple addresses. Also an address could belong to multiple users.
+    addresses = models.ManyToManyField(Address)
+    # Each user can have one phone number for now - might need changing...
+    phone_number = PhoneNumberField(blank=True)
 
 
 class Team(models.Model):
@@ -13,7 +31,7 @@ class Team(models.Model):
     # store the alternative colour scheme of the team (away colours)
     secondary_colour = models.CharField(
         "Secondary Team Colour Scheme", max_length=50)
-    # Team Leader is an authenticated User, so the leader can edit the team info
+    # Team Manager is an authenticated User, so the leader can edit the team info
     team_manager = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True, verbose_name="Team Manager",)
     players = models.ManyToManyField(
