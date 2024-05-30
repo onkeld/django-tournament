@@ -73,3 +73,30 @@ class Tournament(models.Model):
 class Participant(models.Model):
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.team.name
+
+
+class Game(models.Model):
+    # A game belongs to a tournament.
+    # Each tournament can have many games.
+    # Therefore, we define a many-to-one relationship.
+    # In case a tournament gets deleted, the games belonging to this
+    # tournament can be deleted as well.
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
+    # Each game is played by two teams. One is considered the home, the other
+    # the away team.
+    # Both Teams have to be participants of the same tournament. Therefore,
+    # Home and Away team are one-to-many relationships to the participants.
+    # TODO: Validate that home and away team cannot be the same.
+    # We do not want to lose past game info if a team gets deleted from the database. Therefore, we set a "Team Deleted" in case the team does not exist anymore.
+    home_team = models.ForeignKey(
+        Participant, null=True, related_name="HomeTeam", on_delete=models.SET("Team Deleted"))
+    home_goals = models.PositiveSmallIntegerField(default=0)
+    away_team = models.ForeignKey(
+        Participant, null=True, related_name="AwayTeam", on_delete=models.SET("Team Deleted"))
+    away_goals = models.PositiveSmallIntegerField(default=0)
+
+    def __str__(self):
+        return self.home_team.team.name + " - " + self.away_team.team.name
