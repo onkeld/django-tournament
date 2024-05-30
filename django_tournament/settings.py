@@ -161,6 +161,7 @@ INSTALLED_APPS = [
     'static_pages',
     'tournament',
     'django_countries',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
