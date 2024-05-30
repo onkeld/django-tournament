@@ -160,6 +160,7 @@ INSTALLED_APPS = [
     # 'allauth.socialaccount.providers.feishu',
     'static_pages',
     'tournament',
+    'django_countries',
 ]
 
 MIDDLEWARE = [
