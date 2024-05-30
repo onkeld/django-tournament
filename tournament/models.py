@@ -11,6 +11,11 @@ class Address(models.Model):
     city = models.CharField(max_length=100)
     country = CountryField(default="DE")
 
+    def __str__(self):
+        address = self.street + " " + self.number + ", " + \
+            self.postcode + " " + self.city + ", " + self.country.name
+        return address
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -18,6 +23,10 @@ class Profile(models.Model):
     addresses = models.ManyToManyField(Address)
     # Each user can have one phone number for now - might need changing...
     phone_number = PhoneNumberField(blank=True)
+
+    def __str__(self):
+        profile_string = self.user.first_name + "'s Profile"
+        return profile_string
 
 
 class Team(models.Model):
