@@ -10,10 +10,7 @@ readme = "README.md"
 python = "^3.10"
 django = "^5.0.4"
 django-allauth = "^0.61.1"
-django-extensions = "^3.2.3"
 pydotplus = "^2.0.2"
-
-django-allauth = "^0.61.1"
 python-dateutil = "^2.9.0.post0"
 django-countries = {extras = ["pyuca"], version = "^7.6.1"}
 django-phonenumber-field = {extras = ["phonenumbers"], version = "^7.3.0"}
@@ -21,14 +18,12 @@ django-phonenumber-field = {extras = ["phonenumbers"], version = "^7.3.0"}
 
 [tool.poetry.group.test.dependencies]
 django-webtest = "^1.9.11"
-coverage = "^7.4.4"
 factory-boy = "^3.3.0"
 faker = "^25.3.0"
-
+django-webtest = "^1.9.11"
 
 
 [tool.poetry.group.dev.dependencies]
-django-webtest = "^1.9.11"
 coverage = "^7.4.4"
 django-extensions = "^3.2.3"
 pydotplus = "^2.0.2"
