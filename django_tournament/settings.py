@@ -159,6 +159,8 @@ INSTALLED_APPS = [
     # 'allauth.socialaccount.providers.okta',
     # 'allauth.socialaccount.providers.feishu',
     'static_pages',
+    'django_extensions',
+
     'tournament',
     'django_countries',
     'phonenumber_field',
