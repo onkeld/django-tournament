@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'django_countries',
+    'phonenumber_field',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -159,11 +161,7 @@ INSTALLED_APPS = [
     # 'allauth.socialaccount.providers.okta',
     # 'allauth.socialaccount.providers.feishu',
     'static_pages',
-    'django_extensions',
-
     'tournament',
-    'django_countries',
-    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
