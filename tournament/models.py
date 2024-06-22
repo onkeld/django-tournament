@@ -69,7 +69,7 @@ class Tournament(models.Model):
         # End_Date has to be later than start_Date
         if self.start_date >= self.end_date:
             raise ValidationError(
-                _("Start Date can not be later than End Date."))
+                ("Start Date can not be later than End Date."))
 
     def __str__(self):
         start_str = self.start_date.strftime('%Y-%m-%d')
