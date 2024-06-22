@@ -1,0 +1,11 @@
+{% extends 'layout.html'%}
+{% block content %}
+    <ul>
+        {% for participant in tournament.participants.all %}
+            <li>{{ participant.name}}</li>
+    {% empty %}
+        <li>No participants listed yet.</li>
+{% endfor %}
+    </ul>
+
+{% endblock content %}

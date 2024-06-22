@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import IndexView
+from .views import TournamentIndexView, TournamentDetailView
 from . import views
 urlpatterns = [
-    path("", IndexView.as_view(), name="index"),
-    path("<int:tournament_id>/", views.detail, name="detail"),
+    path("", TournamentIndexView.as_view(), name="index"),
+    path("<pk>/", TournamentDetailView.as_view(), name="detail"),
 ]
