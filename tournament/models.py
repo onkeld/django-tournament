@@ -1,3 +1,5 @@
+import datetime
+from django.core.exceptions import ValidationError
 from django.db import models
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
@@ -62,6 +64,12 @@ class Tournament(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     modified_at = models.DateTimeField(auto_now=True, editable=False)
     participants = models.ManyToManyField(Team, through="Participant")
+
+    def clean(self):
+        # End_Date has to be later than start_Date
+        if self.start_date >= self.end_date:
+            raise ValidationError(
+                _("Start Date can not be later than End Date."))
 
     def __str__(self):
         start_str = self.start_date.strftime('%Y-%m-%d')
