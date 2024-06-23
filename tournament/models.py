@@ -85,6 +85,34 @@ class Participant(models.Model):
     def __str__(self):
         return self.team.name
 
+    def games_played(self):
+        home_games = self.HomeTeam.filter(
+            tournament_id=self.tournament.id).count()
+        away_games = self.AwayTeam.filter(
+            tournament_id=self.tournament.id).count()
+        games = home_games + away_games
+
+        return games
+
+    def calculate_points(self):
+        home_games = self.HomeTeam.filter(tournament_id=self.tournament.id)
+        away_games = self.AwayTeam.filter(tournament_id=self.tournament.id)
+        points = 0
+
+        for game in home_games:
+            if game.home_goals > game.away_goals:
+                points = points+3
+            if game.home_goals == game.away_goals:
+                points = points+1
+
+        for game in away_games:
+            if game.away_goals > game.home_goals:
+                points = points+3
+            if game.away_goals == game.home_goals:
+                points = points+1
+
+        return points
+
 
 class Game(models.Model):
     # A game belongs to a tournament.
