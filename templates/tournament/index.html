@@ -2,7 +2,7 @@
 <ul>
 {% for tournament in object_list %}
     <li>
-        <a href="{% url 'detail' tournament.id %}">{{ tournament }}</a>
+        <a href="{% url 'tournament_detail' tournament.id %}">{{ tournament }}</a>
     </li>
 {% empty %}
     <li>No tournaments listed yet.</li>

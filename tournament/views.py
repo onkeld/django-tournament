@@ -1,8 +1,9 @@
 from typing import Any
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.generic import ListView, DetailView
-from .models import Tournament
+from django.views.generic import ListView
+from django.template import loader
+from .models import Tournament, Participant
 
 
 class TournamentIndexView(ListView):
@@ -12,14 +13,21 @@ class TournamentIndexView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         return context
 
 
-class TournamentDetailView(DetailView):
-    model = Tournament
-    # template_name = "tournament/tournament_detail"
+def TournamentDetail(request, tournament_id):
+    tournament = Tournament.objects.get(pk=tournament_id)
+    # participants = tournament.participants.all
+    template = loader.get_template("tournament/tournament_detail.html")
+    context = {"tournament": tournament, }
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+    return HttpResponse(template.render(context, request))
+
+
+# class TournamentDetailView(DetailView):
+#    model = Tournament
+
+ #   def get_context_data(self, **kwargs):
+ #       context = super().get_context_data(**kwargs)
+ #       return context
