@@ -113,6 +113,19 @@ class Participant(models.Model):
 
         return points
 
+    def calculate_goal_diff(self):
+        home_games = self.HomeTeam.filter(tournament_id=self.tournament.id)
+        away_games = self.AwayTeam.filter(tournament_id=self.tournament.id)
+        goal_diff = 0
+
+        for game in home_games:
+            goal_diff = goal_diff + game.home_goals - game.away_goals
+
+        for game in away_games:
+            goal_diff = goal_diff + game.away_goals - game.home_goals
+
+        return goal_diff
+
 
 class Game(models.Model):
     # A game belongs to a tournament.

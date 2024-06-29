@@ -16,6 +16,7 @@
                 <td>{{ participant }}</td>
                 <td> {{ participant.games_played }} </td>
                 <td> {{ participant.calculate_points }} </td>
+                <td> {{participant.calculate_goal_diff }}</td>
             {% empty %}
             <tr>
                 <td>No participants listed yet.</td>
