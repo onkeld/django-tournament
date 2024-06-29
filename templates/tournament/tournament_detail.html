@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for participant in tournament.participant_set.all %}
+            {% for participant in participants %}
             <tr>
                 <td>{{ participant }}</td>
                 <td> {{ participant.games_played }} </td>

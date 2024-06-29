@@ -20,7 +20,8 @@ def TournamentDetail(request, tournament_id):
     tournament = Tournament.objects.get(pk=tournament_id)
     # participants = tournament.participants.all
     template = loader.get_template("tournament/tournament_detail.html")
-    context = {"tournament": tournament, }
+    context = {"participants": sorted(
+        tournament.participant_set.all(), key=lambda a: (a.calculate_points(), a.calculate_goal_diff()), reverse=True)}
 
     return HttpResponse(template.render(context, request))
 

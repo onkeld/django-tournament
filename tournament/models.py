@@ -79,6 +79,7 @@ class Tournament(models.Model):
 
 
 class Participant(models.Model):
+
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
 
