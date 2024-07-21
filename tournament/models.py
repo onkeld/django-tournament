@@ -78,6 +78,36 @@ class Tournament(models.Model):
         return tournament_date
 
 
+class Round(models.Model):
+    # Each round can only belong to one tournament. Tournaments can have many rounds.
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
+    # Since each game can only belong to one round, but a round can have
+    # many games, we define a many-to-one relationship with between rounds
+    # and games on the games table.
+    round_number = models.PositiveSmallIntegerField()
+    # TODO: We need to validate, that round numbers are distinct within the constraint of a given tournament. Each tournament can only have on first round, one second round etc..
+    # We want to allow for different game lengths depending on the round
+    # of the tournament.
+    # For example, most games should be 7 minutes per half, finals should
+    # be 10 minutes per half. Half Time should be 1 Minute in normal games,
+    # 3 minutes in final games.
+    ROUND_TYPE_CHOICES = {
+        "Standard": "Standard",
+        "Final": "Final",
+    }
+    round_type = models.CharField(
+        choices=ROUND_TYPE_CHOICES, default="Standard")
+    # Storing minutes as integer is better than using DurationField in my opinion, because of arithmetics.
+    # Length of each game in this round in minutes
+    game_duration = models.IntegerField()
+    # Length of the half time break in this round. in minutes.
+    halftime_duration = models.IntegerField()
+    # Length of the break between games in this round, in minutes.
+    break_duration = models.IntegerField()
+    # Start Time for this round, used to calculate game start and end times for the tournament schedule.
+    round_start_time = models.DateTimeField()
+
+
 class Participant(models.Model):
 
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
@@ -135,6 +165,9 @@ class Game(models.Model):
     # In case a tournament gets deleted, the games belonging to this
     # tournament can be deleted as well.
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
+    round = models.ForeignKey(
+        Round, on_delete=models.CASCADE, null=True)
+
     # Each game is played by two teams. One is considered the home, the other
     # the away team.
     # Both Teams have to be participants of the same tournament. Therefore,
