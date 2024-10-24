@@ -22,9 +22,22 @@ faker = "^25.3.0"
 [tool.poetry.group.dev.dependencies]
 coverage = "^7.4.4"
 pre-commit = "^4.0.1"
+pylint = "^3.3.1"
+pylint-django = "^2.6.1"
 django-extensions = "^3.2.3"
 pydotplus = "^2.0.2"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+target-version = ['py310']
+include = '\.pyi?$'
+
+[tool.djlint]
+profile="django"
+
+[tool.ruff]
+line-length = 120

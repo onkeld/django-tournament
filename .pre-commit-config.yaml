@@ -1,0 +1,47 @@
+exclude: ^migrations/
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: https://github.com/psf/black
+    rev: 24.10.0
+    hooks:
+      - id: black
+  - repo: https://github.com/Riverside-Healthcare/djLint
+    rev: v1.35.2
+    hooks:
+      - id: djlint-django
+  - repo: https://github.com/python-poetry/poetry
+    rev: "1.4.1"
+    hooks:
+      - id: poetry-export
+        args:
+          [
+            "-f",
+            "requirements.txt",
+            "-o",
+            "requirements.txt",
+            "--without-hashes",
+          ]
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: "v0.0.260"
+    hooks:
+      - id: ruff
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint
+        entry: poetry run pylint
+        language: system
+        types: [python]
+        require_serial: true
+        args: [
+            "-rn", # Only display messages
+            "-sn", # Don't display the score
+            "--load-plugins=pylint_django",
+            "--django-settings-module=django_tournament.settings", # new
+            "--ignore=manage.py",
+          ]
