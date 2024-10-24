@@ -1,6 +1,6 @@
-{% extends 'layout.html'%}
+{% extends "layout.html" %}
 {% block content %}
-    <h1>Tournament: {{tournament}}</h1>
+    <h1>Tournament: {{ tournament }}</h1>
     <table>
         <thead>
             <tr>
@@ -16,14 +16,13 @@
                 <td>{{ participant }}</td>
                 <td> {{ participant.games_played }} </td>
                 <td> {{ participant.calculate_points }} </td>
-                <td> {{participant.calculate_goal_diff }}</td>
+                <td> {{ participant.calculate_goal_diff }}</td>
             {% empty %}
+            </tr>
             <tr>
                 <td>No participants listed yet.</td>
             </tr>
 {% endfor %}
         </tbody>
     </table>
-
-   
 {% endblock content %}

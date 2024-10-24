@@ -1,7 +1,8 @@
+from datetime import date, timedelta
+from faker import Faker
 from django.test import TestCase
 from ..factories.tournament import TournamentFactory
-from faker import Faker
-from datetime import date, timedelta
+
 # from tournament.models import Tournament
 
 
@@ -18,8 +19,7 @@ class TournamentModelTest(TestCase):
         start_date = date.today()
         end_date = date.today() + timedelta(days=3)
         # create
-        tournament = TournamentFactory(
-            start_date=start_date, end_date=end_date)
+        tournament = TournamentFactory(start_date=start_date, end_date=end_date)
         # read
         self.assertEqual(tournament.start_date, start_date)
         self.assertEqual(tournament.end_date, end_date)
@@ -31,8 +31,6 @@ class TournamentModelTest(TestCase):
     def test_string_representation(self):
         start_date = date.today()
         end_date = date.today() + timedelta(days=3)
-        tournament = TournamentFactory(
-            start_date=start_date, end_date=end_date)
-        datestring = tournament.start_date.strftime(
-            '%Y-%m-%d') + " - " + tournament.end_date.strftime('%Y-%m-%d')
+        tournament = TournamentFactory(start_date=start_date, end_date=end_date)
+        datestring = tournament.start_date.strftime("%Y-%m-%d") + " - " + tournament.end_date.strftime("%Y-%m-%d")
         self.assertEqual(str(tournament), datestring)

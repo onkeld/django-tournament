@@ -7,19 +7,38 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tournament', '0005_address_profile'),
+        ("tournament", "0005_address_profile"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Game',
+            name="Game",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('home_goals', models.PositiveSmallIntegerField(default=0)),
-                ('away_goals', models.PositiveSmallIntegerField(default=0)),
-                ('away_team', models.ForeignKey(null=True, on_delete=models.SET('Team Deleted'), related_name='AwayTeam', to='tournament.participant')),
-                ('home_team', models.ForeignKey(null=True, on_delete=models.SET('Team Deleted'), related_name='HomeTeam', to='tournament.participant')),
-                ('tournament', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='tournament.tournament')),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("home_goals", models.PositiveSmallIntegerField(default=0)),
+                ("away_goals", models.PositiveSmallIntegerField(default=0)),
+                (
+                    "away_team",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=models.SET("Team Deleted"),
+                        related_name="AwayTeam",
+                        to="tournament.participant",
+                    ),
+                ),
+                (
+                    "home_team",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=models.SET("Team Deleted"),
+                        related_name="HomeTeam",
+                        to="tournament.participant",
+                    ),
+                ),
+                (
+                    "tournament",
+                    models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="tournament.tournament"),
+                ),
             ],
         ),
     ]

@@ -7,21 +7,24 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tournament', '0003_teammember_team_players'),
+        ("tournament", "0003_teammember_team_players"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Participant',
+            name="Participant",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('team', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='tournament.team')),
-                ('tournament', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='tournament.tournament')),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("team", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="tournament.team")),
+                (
+                    "tournament",
+                    models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="tournament.tournament"),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='tournament',
-            name='participants',
-            field=models.ManyToManyField(through='tournament.Participant', to='tournament.team'),
+            model_name="tournament",
+            name="participants",
+            field=models.ManyToManyField(through="tournament.Participant", to="tournament.team"),
         ),
     ]
