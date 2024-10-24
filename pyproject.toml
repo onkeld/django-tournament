@@ -23,6 +23,7 @@ faker = "^25.3.0"
 [tool.poetry.group.dev.dependencies]
 django-webtest = "^1.9.11"
 coverage = "^7.4.4"
+pre-commit = "^4.0.1"
 django-extensions = "^3.2.3"
 pydotplus = "^2.0.2"
 
