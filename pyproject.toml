@@ -11,19 +11,18 @@ python = "^3.10"
 django = "^5.0.4"
 django-allauth = "^0.61.1"
 
-
 [tool.poetry.group.test.dependencies]
 django-webtest = "^1.9.11"
 coverage = "^7.4.4"
 factory-boy = "^3.3.0"
 faker = "^25.3.0"
 
-
-
 [tool.poetry.group.dev.dependencies]
 django-webtest = "^1.9.11"
 coverage = "^7.4.4"
 pre-commit = "^4.0.1"
+pylint = "^3.3.1"
+pylint-django = "^2.6.1"
 django-extensions = "^3.2.3"
 pydotplus = "^2.0.2"
 
@@ -31,3 +30,14 @@ pydotplus = "^2.0.2"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+target-version = ['py310']
+include = '\.pyi?$'
+
+[tool.djlint]
+profile="django"
+
+[tool.ruff]
+line-length = 120
