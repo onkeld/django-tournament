@@ -21,6 +21,8 @@ faker = "^25.3.0"
 django-webtest = "^1.9.11"
 coverage = "^7.4.4"
 pre-commit = "^4.0.1"
+pylint = "^3.3.1"
+pylint-django = "^2.6.1"
 
 [build-system]
 requires = ["poetry-core"]

@@ -11,3 +11,18 @@ repos:
     hooks:
       - id: black
     language_version: python3.10
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint
+        entry: poetry run pylint
+        language: system
+        types: [python]
+        require_serial: true
+        args: [
+            "-rn", # Only display messages
+            "-sn", # Don't display the score
+            "--load-plugins=pylint_django",
+            "--django-settings-module=django_tournament.settings", # new
+            "--ignore=manage.py",
+          ]
