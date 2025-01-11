@@ -1,9 +1,13 @@
-import datetime
-from django.core.exceptions import ValidationError
+# import datetime
 from django.db import models
+from django.contrib.auth import get_user_model
+
+# from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
-from django.contrib.auth.models import User
+
+User = get_user_model()
 
 
 class Address(models.Model):
@@ -14,8 +18,7 @@ class Address(models.Model):
     country = CountryField(default="DE")
 
     def __str__(self):
-        address = self.street + " " + self.number + ", " + \
-            self.postcode + " " + self.city + ", " + self.country.name
+        address = self.street + " " + self.number + ", " + self.postcode + " " + self.city + ", " + self.country.name
         return address
 
 
@@ -35,18 +38,19 @@ class Team(models.Model):
     name = models.CharField("Team Name", max_length=255)  # store team name
     club = models.CharField("Club Name", max_length=255)
     city = models.CharField("City of Origin", max_length=75)
-    country = models.CharField(
-        "Country of Origin", max_length=255, default="Germany")
+    country = models.CharField("Country of Origin", max_length=255, default="Germany")
     # store the preferred colour scheme of the team (home colours)
     primary_colour = models.CharField("Main Team Colour Scheme", max_length=50)
     # store the alternative colour scheme of the team (away colours)
-    secondary_colour = models.CharField(
-        "Secondary Team Colour Scheme", max_length=50)
+    secondary_colour = models.CharField("Secondary Team Colour Scheme", max_length=50)
     # Team Manager is an authenticated User, so the leader can edit the team info
     team_manager = models.OneToOneField(
-        User, on_delete=models.CASCADE, primary_key=True, verbose_name="Team Manager",)
-    players = models.ManyToManyField(
-        User, through="TeamMember", related_name='players')
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+        verbose_name="Team Manager",
+    )
+    players = models.ManyToManyField(User, through="TeamMember", related_name="players")
 
     def __str__(self):
         return self.name
@@ -68,12 +72,11 @@ class Tournament(models.Model):
     def clean(self):
         # End_Date has to be later than start_Date
         if self.start_date >= self.end_date:
-            raise ValidationError(
-                ("Start Date can not be later than End Date."))
+            raise ValidationError(("Start Date can not be later than End Date."))
 
     def __str__(self):
-        start_str = self.start_date.strftime('%Y-%m-%d')
-        end_str = self.end_date.strftime('%Y-%m-%d')
+        start_str = self.start_date.strftime("%Y-%m-%d")
+        end_str = self.end_date.strftime("%Y-%m-%d")
         tournament_date = start_str + " - " + end_str
         return tournament_date
 
@@ -87,10 +90,8 @@ class Participant(models.Model):
         return self.team.name
 
     def games_played(self):
-        home_games = self.HomeTeam.filter(
-            tournament_id=self.tournament.id).count()
-        away_games = self.AwayTeam.filter(
-            tournament_id=self.tournament.id).count()
+        home_games = self.HomeTeam.filter(tournament_id=self.tournament.id).count()
+        away_games = self.AwayTeam.filter(tournament_id=self.tournament.id).count()
         games = home_games + away_games
 
         return games
@@ -102,15 +103,15 @@ class Participant(models.Model):
 
         for game in home_games:
             if game.home_goals > game.away_goals:
-                points = points+3
+                points = points + 3
             if game.home_goals == game.away_goals:
-                points = points+1
+                points = points + 1
 
         for game in away_games:
             if game.away_goals > game.home_goals:
-                points = points+3
+                points = points + 3
             if game.away_goals == game.home_goals:
-                points = points+1
+                points = points + 1
 
         return points
 
@@ -140,12 +141,12 @@ class Game(models.Model):
     # Both Teams have to be participants of the same tournament. Therefore,
     # Home and Away team are one-to-many relationships to the participants.
     # TODO: Validate that home and away team cannot be the same.
-    # We do not want to lose past game info if a team gets deleted from the database. Therefore, we set a "Team Deleted" in case the team does not exist anymore.
-    home_team = models.ForeignKey(
-        Participant, null=True, related_name="HomeTeam", on_delete=models.SET("Team Deleted"))
+    # We do not want to lose past game info if a team gets deleted from the
+    #  database. Therefore, we set a "Team Deleted" in case the team does not
+    # exist anymore.
+    home_team = models.ForeignKey(Participant, null=True, related_name="HomeTeam", on_delete=models.SET("Team Deleted"))
     home_goals = models.PositiveSmallIntegerField(default=0)
-    away_team = models.ForeignKey(
-        Participant, null=True, related_name="AwayTeam", on_delete=models.SET("Team Deleted"))
+    away_team = models.ForeignKey(Participant, null=True, related_name="AwayTeam", on_delete=models.SET("Team Deleted"))
     away_goals = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):
